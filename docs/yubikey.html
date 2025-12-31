@@ -17,7 +17,7 @@
         <h2>1. Authentification PAM</h2>
         <pre>ykpersonalize -2 -ochal-resp -ohmac-sha1</pre>
         <div class="explanation">
-            <strong>Explication :</strong> On configure le deuxième "slot" de la YubiKey pour répondre à un défi mathématique (HMAC). C'est ce qui remplacera ou complétera votre mot de passe habituel.
+             On configure le deuxième "slot" de la YubiKey pour répondre à un défi mathématique (HMAC). C'est ce qui remplacera ou complétera votre mot de passe habituel.
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <h2>2. Initialisation GPG</h2>
         <pre>gpg --card-status</pre>
         <div class="explanation">
-            <strong>Explication :</strong> On vérifie que la puce "Smartcard" de la YubiKey est active. Cela permet de déléguer la gestion de vos clés d'identité à la clé physique plutôt qu'au disque dur.
+             On vérifie que la puce "Smartcard" de la YubiKey est active. Cela permet de déléguer la gestion de vos clés d'identité à la clé physique plutôt qu'au disque dur.
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <h2>3. SSH Matériel</h2>
         <pre>ssh-add -L</pre>
         <div class="explanation">
-            <strong>Explication :</strong> On extrait la "clé publique" de la YubiKey. C'est cette ligne de texte que vous donnerez aux serveurs pour qu'ils acceptent votre connexion uniquement si votre YubiKey est branchée.
+            On extrait la "clé publique" de la YubiKey. C'est cette ligne de texte que vous donnerez aux serveurs pour qu'ils acceptent votre connexion uniquement si votre YubiKey est branchée.
         </div>
     </div>
 </body>
