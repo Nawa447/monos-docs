@@ -10,30 +10,103 @@
     <nav>
         <a href="index.html">Accueil</a>
         <a href="installation.html">Installation</a>
-        <a href="yubikey.html">Sécurité</a>
+        <a href="yubikey.html" class="active">Sécurité</a>
     </nav>
 
     <div class="step">
-        <h2>1. Authentification PAM</h2>
-        <pre>ykpersonalize -2 -ochal-resp -ohmac-sha1</pre>
+        <h2>1. Prérequis et réinitialisation YubiKey</h2>
+        <pre>sudo apt install libpam-yubico yubikey-manager yubikey-personalization
+ykman piv reset
+ykman oath reset
+ykman fido reset
+ykman config nfc --disable-all</pre>
         <div class="explanation">
-             On configure le deuxième "slot" de la YubiKey pour répondre à un défi mathématique (HMAC). C'est ce qui remplacera ou complétera votre mot de passe habituel.
+            Installe les outils et réinitialise complètement la YubiKey.
         </div>
     </div>
 
     <div class="step">
-        <h2>2. Initialisation GPG</h2>
-        <pre>gpg --card-status</pre>
+        <h2>2. Sécurisation USB</h2>
+        <pre>ykman config usb --disable U2F
+ykman config usb --disable OPENPGP
+ykman config usb --disable PIV
+ykman config usb --disable OATH
+ykman config usb --disable FIDO2
+ykman config usb --list</pre>
         <div class="explanation">
-             On vérifie que la puce "Smartcard" de la YubiKey est active. Cela permet de déléguer la gestion de vos clés d'identité à la clé physique plutôt qu'au disque dur.
+            Ne laisser activé que l’interface OTP.
         </div>
     </div>
 
     <div class="step">
-        <h2>3. SSH Matériel</h2>
-        <pre>ssh-add -L</pre>
+        <h2>3. Configuration HMAC-SHA1</h2>
+        <pre>sudo mkdir -p /etc/yubico
+sudo chown root:root /etc/yubico
+sudo chmod 0700 /etc/yubico
+ykpersonalize -2 -ochal-resp -ohmac-sha1 -oserial-api-visible
+head -c 64 /dev/urandom | base64 | \
+ykchalresp -2 -x | sudo tee /etc/yubico/&lt;username&gt; > /dev/null
+sudo chown root:root /etc/yubico/&lt;username&gt;
+sudo chmod 0400 /etc/yubico/&lt;username&gt;
+sudo cp /etc/yubico/&lt;username&gt; ./challenge-$(date +%F).bak</pre>
+    </div>
+
+    <div class="step">
+        <h2>4. Intégration PAM</h2>
+        <pre>sudo nano /etc/pam.d/common-auth</pre>
         <div class="explanation">
-            On extrait la "clé publique" de la YubiKey. C'est cette ligne de texte que vous donnerez aux serveurs pour qu'ils acceptent votre connexion uniquement si votre YubiKey est branchée.
+            Ajouter en haut :<br>
+            <code>auth required pam_yubico.so mode=challenge-response chalresp_path=/etc/yubico</code><br>
+            Désactiver `su` : <code>sudo chmod 000 /bin/su</code>
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>5. Déverrouillage LUKS via YubiKey</h2>
+        <pre>head -c 64 /dev/random | base64 | sudo tee /etc/yubico/boot.challenge
+sudo ykchalresp -2 -x "$(cat /etc/yubico/boot.challenge)" | sudo tee /etc/yubico/boot.response
+sudo chmod 0400 /etc/yubico/boot.*
+sudo chown root:root /etc/yubico/boot.*
+sudo cryptsetup luksAddKey /dev/sdXn /etc/yubico/boot.response
+sudo nano /etc/crypttab
+sudo update-initramfs -u -k all</pre>
+        <div class="explanation">
+            Préparer l’OS pour déverrouiller les partitions LUKS uniquement avec la YubiKey.
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>6. SSH & GPG avec YubiKey</h2>
+        <pre>sudo apt install openssh-client gnupg pcscd scdaemon yubikey-manager
+sudo systemctl enable --now pcscd</pre>
+        <div class="explanation">
+            - Utilisation GPG pour signer, chiffrer et authentifier<br>
+            - SSH via sous-clé GPG<br>
+            - Aucune clé privée sur le disque
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>6.1 Initialisation GPG</h3>
+        <pre>gpg --card-status
+gpg --full-generate-key</pre>
+        <div class="explanation">
+            Génère clé maître temporaire, puis sous-clés : signature, chiffrement, authentification.  
+            Transférer les sous-clés vers la YubiKey avec `keytocard`.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>6.2 SSH via GPG</h3>
+        <pre>nano ~/.gnupg/gpg-agent.conf
+# ajouter enable-ssh-support
+gpgconf --kill gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+ssh-add -L
+nano ~/.ssh/authorized_keys
+ssh user@serveur</pre>
+        <div class="explanation">
+            Permet d’utiliser la sous-clé GPG d’authentification pour SSH, uniquement si la YubiKey est branchée.
         </div>
     </div>
 </body>

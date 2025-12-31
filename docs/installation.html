@@ -9,31 +9,72 @@
     <header><h1>Compilation de l'ISO</h1></header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="installation.html">Installation</a>
+        <a href="installation.html" class="active">Installation</a>
         <a href="yubikey.html">Sécurité</a>
     </nav>
 
     <div class="step">
-        <h3>1. Installation des outils</h3>
-        <pre>sudo apt update && sudo apt install live-build</pre>
+        <h3>1. Installation de live-build</h3>
+        <pre>sudo apt update
+sudo apt install live-build</pre>
         <div class="explanation">
-             Nous installons <code>live-build</code>, l'outil officiel de Debian pour transformer un système Linux en image ISO bootable.
+             - `apt update` : met à jour la liste des paquets disponibles<br>
+             - `apt install live-build` : installe l’outil officiel Debian pour créer des ISO live
         </div>
     </div>
 
     <div class="step">
-        <h3>2. Initialisation</h3>
-        <pre>lb config --distribution bookworm --binary-images iso-hybrid</pre>
+        <h3>2. Création du projet et initialisation</h3>
+        <pre>mkdir mon-os
+cd mon-os
+lb config</pre>
         <div class="explanation">
-            Cette commande prépare l'arborescence. On choisit <strong>Bookworm</strong> (Debian 12) et le format <strong>iso-hybrid</strong> qui permet de démarrer l'ISO aussi bien sur une clé USB que sur un DVD ou une VM.
+            Prépare le dossier de travail `mon-os` et initialise l’arborescence de build (`config/`).
         </div>
     </div>
 
     <div class="step">
-        <h3>3. Lancer la génération</h3>
+        <h3>3. Choisir la version de Debian</h3>
+        <pre>lb config \
+  --distribution bookworm \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --binary-images iso-hybrid</pre>
+        <div class="explanation">
+            - `--distribution bookworm` : version Debian 12<br>
+            - `--archive-areas` : inclut firmware et pilotes matériels<br>
+            - `--binary-images iso-hybrid` : ISO bootable USB + VM
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>4. Ajouter des paquets au système</h3>
+        <pre>mkdir -p config/package-lists
+nano config/package-lists/base.list.chroot</pre>
+        <div class="explanation">
+            Exemple de paquets à installer :
+            <pre>vim
+curl
+git
+sudo
+openssh-server
+network-manager</pre>
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>5. Ajouter des fichiers personnalisés</h3>
+        <pre>mkdir -p config/includes.chroot/etc/skel
+nano config/includes.chroot/etc/skel/.bashrc</pre>
+        <div class="explanation">
+            Ce fichier `.bashrc` sera présent pour tous les nouveaux utilisateurs de l’OS final.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>6. Génération de l’ISO</h3>
         <pre>sudo lb build</pre>
         <div class="explanation">
-            C'est ici que la magie opère. Le script télécharge tous les composants de Debian et les compresse dans un seul fichier final nommé <code>live-image-amd64.hybrid.iso</code>.
+            Télécharge tous les composants Debian et crée le fichier `live-image-amd64.hybrid.iso`.
         </div>
     </div>
 </body>
