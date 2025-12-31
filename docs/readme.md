@@ -1,0 +1,25 @@
+# MonOS - Documentation
+
+## Alias utiles
+
+Voici quelques alias pratiques à ajouter dans votre terminal pour faciliter la navigation et la gestion des fichiers :
+
+```bash
+alias ll='ls -alF --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+```
+
+L’ISO contient tous les éléments nécessaires pour démarrer et utiliser le système d’exploitation, incluant les outils, scripts et configurations de base. Cependant, il n’intègre pas les informations sensibles telles que les clés, mots de passe ou autres données personnelles.
+
+Ces informations confidentielles doivent être générées et configurées par l’utilisateur après l’installation. Cette démarche garantit que ces secrets ne sont accessibles qu’à leur propriétaire.
+
+Il s’agit d’une pratique recommandée en matière de sécurité, car inclure des secrets dans une image distribuée expose à des risques de compromission.
+
+Ainsi, la politique adoptée distingue clairement les éléments publics et partagés (l’ISO) des éléments privés et personnels (clés, mots de passe, configurations sensibles). Cette séparation contribue à assurer la confidentialité et la sécurité de l’utilisateur final.
+
+> [!NOTE importante]
+> Aucun secret n’est distribué
+
