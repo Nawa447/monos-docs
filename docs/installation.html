@@ -17,7 +17,7 @@
         <h3>1. Installation des outils</h3>
         <pre>sudo apt update && sudo apt install live-build</pre>
         <div class="explanation">
-            🔍 <strong>Explication :</strong> Nous installons <code>live-build</code>, l'outil officiel de Debian pour transformer un système Linux en image ISO bootable.
+            <strong>Explication :</strong> Nous installons <code>live-build</code>, l'outil officiel de Debian pour transformer un système Linux en image ISO bootable.
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <h3>2. Initialisation</h3>
         <pre>lb config --distribution bookworm --binary-images iso-hybrid</pre>
         <div class="explanation">
-            🔍 <strong>Explication :</strong> Cette commande prépare l'arborescence. On choisit <strong>Bookworm</strong> (Debian 12) et le format <strong>iso-hybrid</strong> qui permet de démarrer l'ISO aussi bien sur une clé USB que sur un DVD ou une VM.
+            <strong>Explication :</strong> Cette commande prépare l'arborescence. On choisit <strong>Bookworm</strong> (Debian 12) et le format <strong>iso-hybrid</strong> qui permet de démarrer l'ISO aussi bien sur une clé USB que sur un DVD ou une VM.
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <h3>3. Lancer la génération</h3>
         <pre>sudo lb build</pre>
         <div class="explanation">
-            🔍 <strong>Explication :</strong> C'est ici que la magie opère. Le script télécharge tous les composants de Debian et les compresse dans un seul fichier final nommé <code>live-image-amd64.hybrid.iso</code>.
+            <strong>Explication :</strong> C'est ici que la magie opère. Le script télécharge tous les composants de Debian et les compresse dans un seul fichier final nommé <code>live-image-amd64.hybrid.iso</code>.
         </div>
     </div>
 </body>
