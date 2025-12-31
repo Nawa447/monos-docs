@@ -12,6 +12,16 @@ alias ..='cd ..'
 alias ...='cd ../..'
 ```
 
+| Alias         | Commande réelle                          | Utilité                                         |
+| ------------- | ---------------------------------------- | ----------------------------------------------- |
+| `ll`          | `ls -alF --color=auto`                   | Voir tous les fichiers avec détails et couleurs |
+| `la`          | `ls -A --color=auto`                     | Voir tous les fichiers sauf `.` et `..`         |
+| `..`          | `cd ..`                                  | Remonter d’un dossier                           |
+| `...`         | `cd ../..`                               | Remonter de deux dossiers                       |
+| `update-system` | `sudo apt update && sudo apt upgrade -y` | Mettre à jour ton système facilement            |
+
+--- 
+
 L’ISO contient tous les éléments nécessaires pour démarrer et utiliser le système d’exploitation, incluant les outils, scripts et configurations de base. Cependant, il n’intègre pas les informations sensibles telles que les clés, mots de passe ou autres données personnelles.
 
 Ces informations confidentielles doivent être générées et configurées par l’utilisateur après l’installation. Cette démarche garantit que ces secrets ne sont accessibles qu’à leur propriétaire.
