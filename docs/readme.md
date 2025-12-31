@@ -20,6 +20,6 @@ Il s’agit d’une pratique recommandée en matière de sécurité, car inclure
 
 Ainsi, la politique adoptée distingue clairement les éléments publics et partagés (l’ISO) des éléments privés et personnels (clés, mots de passe, configurations sensibles). Cette séparation contribue à assurer la confidentialité et la sécurité de l’utilisateur final.
 
-> [!NOTE importante]
-> Aucun secret n’est distribué
+> **Note importante**  
+> Aucun secret n'est distribué
 
