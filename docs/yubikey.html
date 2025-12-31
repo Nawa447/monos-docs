@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MonOS - Sécurité YubiKey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h1>Sécurité matérielle</h1></header>
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="installation.html">Installation</a>
+        <a href="yubikey.html">Sécurité</a>
+    </nav>
+    <section>
+        <h2>1. Authentification MFA (PAM)</h2>
+        <p>Configuration du module Challenge-Response pour l'ouverture de session.</p>
+        <pre>sudo apt install libpam-yubico yubikey-manager</pre>
+
+        <h2>2. Chiffrement LUKS</h2>
+        <p>Liaison de la clé de déchiffrement du disque à la YubiKey.</p>
+        <pre>sudo cryptsetup luksAddKey /dev/sdXn /etc/yubico/boot.response</pre>
+
+        <h2>3. SSH & GPG</h2>
+        <p>Les clés privées ne quittent jamais la YubiKey.</p>
+        <pre>gpg --card-status</pre>
+    </section>
+</body>
+</html>

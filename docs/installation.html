@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MonOS - Guide d'Installation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h1>Guide de Création MonOS</h1></header>
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="installation.html">Installation</a>
+        <a href="yubikey.html">Sécurité</a>
+    </nav>
+    <section>
+        <h2>1. Préparation de l'environnement</h2>
+        <p>Le build s'effectue dans une VM Debian avec l'outil <code>live-build</code>.</p>
+        <pre>sudo apt update && sudo apt install live-build</pre>
+
+        <h2>2. Configuration du projet</h2>
+        <p>Initialisation de l'arborescence :</p>
+        <pre>lb config --distribution bookworm --binary-images iso-hybrid</pre>
+
+        <h2>3. Génération de l'ISO</h2>
+        <p>Une fois les paquets listés dans <code>config/package-lists/</code>, lancez la compilation :</p>
+        <pre>sudo lb build</pre>
+    </section>
+</body>
+</html>
