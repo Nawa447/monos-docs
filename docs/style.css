@@ -1,70 +1,77 @@
-/* Style général */
+:root {
+    --bg-color: #f6f8fa;
+    --text-color: #24292e;
+    --main-blue: #0366d6;
+    --main-green: #238636;
+    --code-bg: #272822;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-color);
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: var(--bg-color);
 }
 
-/* En-tête et Navigation */
 header {
     background: #24292e;
-    color: #ffffff;
-    padding: 20px;
+    color: white;
+    padding: 40px 20px;
     text-align: center;
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 nav {
-    background: #f0f0f0;
-    padding: 10px;
+    margin-bottom: 30px;
     text-align: center;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 10px;
 }
 
 nav a {
     margin: 0 15px;
     text-decoration: none;
-    color: #0366d6;
-    font-weight: bold;
+    color: var(--main-blue);
+    font-weight: 600;
 }
 
-/* Contenu */
 section {
     background: white;
     padding: 30px;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-h1, h2 { color: #24292e; }
-
-code {
-    background: #f1f1f1;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-family: monospace;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 pre {
-    background: #272822;
+    background: var(--code-bg);
     color: #f8f8f2;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 6px;
     overflow-x: auto;
+    font-size: 14px;
 }
 
-/* Boutons */
+code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background: rgba(27,31,35,0.05);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
 .btn-download {
     display: inline-block;
-    background: #238636;
+    background-color: var(--main-green);
     color: white;
-    padding: 12px 25px;
+    padding: 12px 24px;
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
 }
+
+.btn-download:hover { background-color: #2ea44f; }

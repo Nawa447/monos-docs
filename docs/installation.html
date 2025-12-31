@@ -2,28 +2,32 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>MonOS - Guide d'Installation</title>
+    <title>Installation & Build - MonOS</title>
+    <meta name="description" content="Guide technique pour construire l'ISO MonOS avec live-build.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Guide de Création MonOS</h1></header>
+    <header><h1>Guide de Compilation</h1></header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="installation.html">Installation</a>
-        <a href="yubikey.html">Sécurité</a>
+        <a href="installation.html">Installation (Build)</a>
+        <a href="yubikey.html">Sécurité (YubiKey)</a>
     </nav>
+
     <section>
-        <h2>1. Préparation de l'environnement</h2>
-        <p>Le build s'effectue dans une VM Debian avec l'outil <code>live-build</code>.</p>
-        <pre>sudo apt update && sudo apt install live-build</pre>
-
-        <h2>2. Configuration du projet</h2>
-        <p>Initialisation de l'arborescence :</p>
-        <pre>lb config --distribution bookworm --binary-images iso-hybrid</pre>
-
+        <h2>1. Préparation du projet</h2>
+        <pre>
+sudo apt update && sudo apt install live-build
+mkdir mon-os && cd mon-os
+lb config --distribution bookworm --binary-images iso-hybrid</pre>
+        
+        <h2>2. Personnalisation</h2>
+        <p>Ajoutez vos paquets dans <code>config/package-lists/base.list.chroot</code> :</p>
+        <pre>vim curl git sudo openssh-server network-manager</pre>
+        
         <h2>3. Génération de l'ISO</h2>
-        <p>Une fois les paquets listés dans <code>config/package-lists/</code>, lancez la compilation :</p>
         <pre>sudo lb build</pre>
+        <p>Le fichier généré est : <code>live-image-amd64.hybrid.iso</code></p>
     </section>
 </body>
 </html>

@@ -2,18 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>MonOS - Accueil</title>
-    <style>body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: auto; padding: 20px; background: #f4f4f4; }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>MonOS - Debian sécurisé avec YubiKey</title>
+    <meta name="description" content="Documentation complète de MonOS : un système Debian live-build sécurisé avec authentification matérielle YubiKey et chiffrement LUKS.">
+    <meta name="keywords" content="Debian, YubiKey, Sécurité, LUKS, MFA, Linux, Live-build, OpenSource">
+    <meta name="author" content="Nawa447">
+    
+    <meta property="og:title" content="Projet MonOS - Debian & YubiKey">
+    <meta property="og:description" content="Créez votre propre OS sécurisé avec authentification forte.">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Projet MonOS</h1>
-    <p>Debian sécurisé avec authentification matérielle YubiKey.</p>
-    <hr>
-    <ul>
-        <li><a href="installation.html">Guide de création de l'ISO</a></li>
-        <li><a href="yubikey.html">Configuration Sécurité (LUKS & MFA)</a></li>
-    </ul>
-    <br>
-    <a href="https://github.com/Nawa447/monos-docs/releases/tag/v1.0.0" style="background: #238636; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">Télécharger l'ISO</a>
+    <header>
+        <h1>Projet MonOS</h1>
+        <p>Debian sécurisé avec authentification forte matérielle (YubiKey)</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="installation.html">Installation (Build)</a>
+        <a href="yubikey.html">Sécurité (YubiKey)</a>
+    </nav>
+
+    <section>
+        <h2>Objectif Global</h2>
+        <ul>
+            <li>Créer un OS Debian-based live personnalisé.</li>
+            <li>Authentification matérielle MFA locale + LUKS via YubiKey.</li>
+            <li>Zéro secret intégré dans l'ISO : configuration post-installation.</li>
+        </ul>
+        <a href="https://github.com/Nawa447/monos-docs/releases/download/v1.0.0/live-image-amd64.hybrid.iso" class="btn-download">Télécharger MonOS v1.0.0</a>
+    </section>
 </body>
 </html>

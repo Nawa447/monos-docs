@@ -2,28 +2,30 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>MonOS - Sécurité YubiKey</title>
+    <title>Sécurité YubiKey - MonOS</title>
+    <meta name="description" content="Configuration de l'authentification MFA et du chiffrement LUKS avec YubiKey.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Sécurité matérielle</h1></header>
+    <header><h1>Authentification & Chiffrement</h1></header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="installation.html">Installation</a>
-        <a href="yubikey.html">Sécurité</a>
+        <a href="installation.html">Installation (Build)</a>
+        <a href="yubikey.html">Sécurité (YubiKey)</a>
     </nav>
+
     <section>
-        <h2>1. Authentification MFA (PAM)</h2>
-        <p>Configuration du module Challenge-Response pour l'ouverture de session.</p>
-        <pre>sudo apt install libpam-yubico yubikey-manager</pre>
+        <h2>1. MFA Locale (PAM)</h2>
+        <pre>sudo apt install libpam-yubico yubikey-manager
+# Configuration du Challenge-Response
+ykpersonalize -2 -ochal-resp -ohmac-sha1</pre>
 
         <h2>2. Chiffrement LUKS</h2>
-        <p>Liaison de la clé de déchiffrement du disque à la YubiKey.</p>
+        <p>Lier le déverrouillage disque à la YubiKey :</p>
         <pre>sudo cryptsetup luksAddKey /dev/sdXn /etc/yubico/boot.response</pre>
 
-        <h2>3. SSH & GPG</h2>
-        <p>Les clés privées ne quittent jamais la YubiKey.</p>
-        <pre>gpg --card-status</pre>
+        <h2>3. GPG & SSH</h2>
+        <p>Utilisation de la YubiKey comme Smartcard pour sécuriser vos connexions distantes sans stocker de clés privées sur le disque.</p>
     </section>
 </body>
 </html>
