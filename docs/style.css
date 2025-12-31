@@ -1,11 +1,14 @@
+/* --- COULEURS ET VARIABLES --- */
 :root {
     --bg-color: #f6f8fa;
     --text-color: #24292e;
     --main-blue: #0366d6;
     --main-green: #238636;
-    --code-bg: #272822;
+    --code-bg: #2d333b;
+    --explanation-bg: #f0f7ff;
 }
 
+/* --- STRUCTURE --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     line-height: 1.6;
@@ -19,14 +22,13 @@ body {
 header {
     background: #24292e;
     color: white;
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
     border-radius: 8px;
-    margin-bottom: 20px;
 }
 
 nav {
-    margin-bottom: 30px;
+    margin: 20px 0;
     text-align: center;
     border-bottom: 1px solid #e1e4e8;
     padding-bottom: 10px;
@@ -39,28 +41,32 @@ nav a {
     font-weight: 600;
 }
 
-section {
+/* --- BLOCS D'EXPLICATION --- */
+.step {
     background: white;
-    padding: 30px;
-    border: 1px solid #e1e4e8;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 20px;
+    border-left: 5px solid var(--main-blue);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 pre {
     background: var(--code-bg);
-    color: #f8f8f2;
+    color: #adbac7;
     padding: 15px;
     border-radius: 6px;
     overflow-x: auto;
-    font-size: 14px;
+    font-family: monospace;
 }
 
-code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    background: rgba(27,31,35,0.05);
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
+.explanation {
+    background: var(--explanation-bg);
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #444;
 }
 
 .btn-download {
@@ -71,7 +77,4 @@ code {
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
-    margin-top: 10px;
 }
-
-.btn-download:hover { background-color: #2ea44f; }

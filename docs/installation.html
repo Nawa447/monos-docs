@@ -2,32 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Installation & Build - MonOS</title>
-    <meta name="description" content="Guide technique pour construire l'ISO MonOS avec live-build.">
+    <title>Build MonOS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Guide de Compilation</h1></header>
+    <header><h1>Compilation de l'ISO</h1></header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="installation.html">Installation (Build)</a>
-        <a href="yubikey.html">Sécurité (YubiKey)</a>
+        <a href="installation.html">Installation</a>
+        <a href="yubikey.html">Sécurité</a>
     </nav>
 
-    <section>
-        <h2>1. Préparation du projet</h2>
-        <pre>
-sudo apt update && sudo apt install live-build
-mkdir mon-os && cd mon-os
-lb config --distribution bookworm --binary-images iso-hybrid</pre>
-        
-        <h2>2. Personnalisation</h2>
-        <p>Ajoutez vos paquets dans <code>config/package-lists/base.list.chroot</code> :</p>
-        <pre>vim curl git sudo openssh-server network-manager</pre>
-        
-        <h2>3. Génération de l'ISO</h2>
+    <div class="step">
+        <h3>1. Installation des outils</h3>
+        <pre>sudo apt update && sudo apt install live-build</pre>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> Nous installons <code>live-build</code>, l'outil officiel de Debian pour transformer un système Linux en image ISO bootable.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>2. Initialisation</h3>
+        <pre>lb config --distribution bookworm --binary-images iso-hybrid</pre>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> Cette commande prépare l'arborescence. On choisit <strong>Bookworm</strong> (Debian 12) et le format <strong>iso-hybrid</strong> qui permet de démarrer l'ISO aussi bien sur une clé USB que sur un DVD ou une VM.
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>3. Lancer la génération</h3>
         <pre>sudo lb build</pre>
-        <p>Le fichier généré est : <code>live-image-amd64.hybrid.iso</code></p>
-    </section>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> C'est ici que la magie opère. Le script télécharge tous les composants de Debian et les compresse dans un seul fichier final nommé <code>live-image-amd64.hybrid.iso</code>.
+        </div>
+    </div>
 </body>
 </html>

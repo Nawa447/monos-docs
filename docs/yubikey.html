@@ -2,30 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Sécurité YubiKey - MonOS</title>
-    <meta name="description" content="Configuration de l'authentification MFA et du chiffrement LUKS avec YubiKey.">
+    <title>Sécurité MonOS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Authentification & Chiffrement</h1></header>
+    <header><h1>Configuration YubiKey</h1></header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="installation.html">Installation (Build)</a>
-        <a href="yubikey.html">Sécurité (YubiKey)</a>
+        <a href="installation.html">Installation</a>
+        <a href="yubikey.html">Sécurité</a>
     </nav>
 
-    <section>
-        <h2>1. MFA Locale (PAM)</h2>
-        <pre>sudo apt install libpam-yubico yubikey-manager
-# Configuration du Challenge-Response
-ykpersonalize -2 -ochal-resp -ohmac-sha1</pre>
+    <div class="step">
+        <h2>1. Authentification PAM</h2>
+        <pre>ykpersonalize -2 -ochal-resp -ohmac-sha1</pre>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> On configure le deuxième "slot" de la YubiKey pour répondre à un défi mathématique (HMAC). C'est ce qui remplacera ou complétera votre mot de passe habituel.
+        </div>
+    </div>
 
-        <h2>2. Chiffrement LUKS</h2>
-        <p>Lier le déverrouillage disque à la YubiKey :</p>
-        <pre>sudo cryptsetup luksAddKey /dev/sdXn /etc/yubico/boot.response</pre>
+    <div class="step">
+        <h2>2. Initialisation GPG</h2>
+        <pre>gpg --card-status</pre>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> On vérifie que la puce "Smartcard" de la YubiKey est active. Cela permet de déléguer la gestion de vos clés d'identité à la clé physique plutôt qu'au disque dur.
+        </div>
+    </div>
 
-        <h2>3. GPG & SSH</h2>
-        <p>Utilisation de la YubiKey comme Smartcard pour sécuriser vos connexions distantes sans stocker de clés privées sur le disque.</p>
-    </section>
+    <div class="step">
+        <h2>3. SSH Matériel</h2>
+        <pre>ssh-add -L</pre>
+        <div class="explanation">
+            🔍 <strong>Explication :</strong> On extrait la "clé publique" de la YubiKey. C'est cette ligne de texte que vous donnerez aux serveurs pour qu'ils acceptent votre connexion uniquement si votre YubiKey est branchée.
+        </div>
+    </div>
 </body>
 </html>
